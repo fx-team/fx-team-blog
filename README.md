@@ -20,3 +20,6 @@
 
 # 更多命令和写作操作请看官方网站说明
 [https://hexo.io/zh-cn/docs/commands.html](https://hexo.io/zh-cn/docs/commands.html)
+
+# Markdown 编写规范
+[Markdown 编写规范链接](https://github.com/fx-team/styleguide/blob/master/markdown.md)
