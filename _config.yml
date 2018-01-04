@@ -5,9 +5,9 @@
 # Site
 title: fx-team
 subtitle:
-description:
-author: fx-team
-language: 
+description: 一个富有想象力的前端团队
+author: Fx Team
+language: zh-Hans
 timezone: 
 
 # URL
@@ -72,7 +72,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -80,3 +80,9 @@ deploy:
   type: git
   repo: https://github.com/fx-team/fx-team.github.io.git
   branch: master
+
+archive_generator:
+    per_page: 0
+    yearly: false
+    monthly: false
+    daily: false
