@@ -77,9 +77,10 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
+  type: gitfx
   repo: https://github.com/fx-team/fx-team.github.io.git
   branch: master
+  configDir: config.js
 
 archive_generator:
     per_page: 0
