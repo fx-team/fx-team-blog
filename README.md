@@ -44,3 +44,18 @@ More info: [Deployment](https://hexo.io/docs/deployment.html)
 
 ## Markdown 编写规范
 [Markdown 编写规范链接](https://github.com/fx-team/styleguide/blob/master/markdown.md)
+
+## Tips
+1. 发布新文章 & 修改文章内容
+``` bash
+$ hexo g -d
+```
+
+2. 删除文章
+```
+$ hexo clean
+$ hexo d
+```
+
+3. 修改发布人的配置
+将`config.js`中的内容修改为自己的`github`账号信息，方便点击作者可以跳到相应页面。
