@@ -1,12 +1,12 @@
 ---
-title: phaser问题开发游戏总结 - 2018/01/08
+title: Phaser问题开发游戏总结
 date: 2018-01-08 18:13:33
 tags: 游戏
 ---
 
 ## 前言
 
-phaser是一个非常好用的html5游戏开发框架，官网上是这样介绍的：“一个快速、免费并且完全开源的框架，提供Canvas和WebGL两种渲染方式，致力于增强桌面端与移动端浏览器游戏的体验”。
+Phaser是一个非常好用的html5游戏开发框架，官网上是这样介绍的：“一个快速、免费并且完全开源的框架，提供Canvas和WebGL两种渲染方式，致力于增强桌面端与移动端浏览器游戏的体验”。
 
 ## 开始
 
@@ -22,15 +22,18 @@ game.state.add('Main', Main);
 game.state.start('Splash');
 ```
 
-通过这些方法，就可以完成一个非常炫酷的phaser游戏了
+通过这些方法，就可以完成一个非常炫酷的Phaser游戏了
 
 ### 丰富我们的游戏
 
 初始化Init方法：启动物理引擎（ARCADE），这是Phaser框架自带的最简单的物理引擎，用于矩形盒的碰撞检测。。
+```javascript 
 main.init = function(){
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.world.enableBody = true;
 }
+```
+
 预加载方法：加载各类游戏资源，并设置唯一id，被精灵引用。
 
 ```javascript  
@@ -53,7 +56,6 @@ main.create = function(){
 
 ```javascript  
 main.update = function(){
-    ...
     game.physics.arcade.overlap(this.player, this.floor, this.kill, null, this);
     ...
     if (this.cursor.left.isDown) 
@@ -64,11 +66,11 @@ main.update = function(){
 }
 ```
 
-## phaser开发游戏问题总结
+## Phaser开发游戏问题总结
 
-### iphone下游戏显示模糊
+### iPhone下游戏显示模糊
 
-这是因为iphone现在都是retina屏幕，在retina屏幕下，会用2个像素点的宽度去渲染图片的1个像素点，因此该图片在retina屏幕上实际会占据200x200像素的空间，相当于图片被放大了一倍，因此图片会变得模糊。所以我们在初始化canvas大小不应该是屏幕的 大小去渲染，使用屏幕大小俩倍做渲染，同时通过css来讲canvas缩小，就可以解决问题。
+这是因为iPhone现在都是retina屏幕，在retina屏幕下，会用2个像素点的宽度去渲染图片的1个像素点，因此该图片在retina屏幕上实际会占据200x200像素的空间，相当于图片被放大了一倍，因此图片会变得模糊。所以我们在初始化canvas大小不应该是屏幕的 大小去渲染，使用屏幕大小俩倍做渲染，同时通过css来讲canvas缩小，就可以解决问题。
 
 ```javascript  
 super('100', '100', Phaser.CANVAS, 'content', null);
@@ -77,7 +79,7 @@ super('200', '200', Phaser.CANVAS, 'content', null);
 
 ### 资源问题
 
-phaser社区版本提供了 grunt打包工具，可以自行缩减比如常用 wap端游戏不需要的按键控制，多余的物理引擎，来缩小资源大小。
+Phaser社区版本提供了 grunt打包工具，可以自行缩减比如常用 wap端游戏不需要的按键控制，多余的物理引擎，来缩小资源大小。
 整个资源打包也可以通过webpack内置的压缩进行优化。
 游戏的图片其实对于整个资源占比很大，对一些按钮，icon，标志图片等较小图片可以进行合图操作，减少大量的http请求，对一些超过1024*1024大小的图片进行些许压缩。
 
@@ -90,12 +92,12 @@ phaser社区版本提供了 grunt打包工具，可以自行缩减比如常用 w
 * 游戏内不直接使用setTimeout setInterVal
 * 精灵数量的控制和注意及时的销毁，保证内存不泄露
 
-## phaser 学习资源	
+## Phaser 学习资源	
 
-[phaser 插件合集](https://github.com/orange-games)	
-[phaser官网](http://www.phaser.io)	
-[phaser中文官网](http://phaserengine.com)	
-[phaser 小游戏合集](https://github.com/channingbreeze/games)
-[phaser webpack配置](https://github.com/lean/phaser-es6-webpack)
+[Phaser 插件合集](https://github.com/orange-games)	
+[Phaser官网](http://www.phaser.io)	
+[Phaser中文官网](http://phaserengine.com)	
+[Phaser 小游戏合集](https://github.com/channingbreeze/games)
+[Phaser webpack配置](https://github.com/lean/phaser-es6-webpack)
 
 
