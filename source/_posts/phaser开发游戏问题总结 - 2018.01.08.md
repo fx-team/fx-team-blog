@@ -70,11 +70,18 @@ main.update = function(){
 
 ### iPhone下游戏显示模糊
 
-这是因为iPhone现在都是retina屏幕，在retina屏幕下，会用2个像素点的宽度去渲染图片的1个像素点，因此该图片在retina屏幕上实际会占据200x200像素的空间，相当于图片被放大了一倍，因此图片会变得模糊。所以我们在初始化canvas大小不应该是屏幕的 大小去渲染，使用屏幕大小俩倍做渲染，同时通过css来讲canvas缩小，就可以解决问题。
+这是因为iPhone现在都是retina屏幕，在retina屏幕下，会用2个像素点的宽度去渲染图片的1个像素点，因此该图片在retina屏幕上实际会占据200x200像素的空间，相当于图片被放大了一倍，因此图片会变得模糊。所以我们在初始化canvas大小不应该是屏幕的 大小去渲染，使用屏幕大小俩倍做渲染，同时通过css来讲canvas缩小，就可以解决问题。也可以通过dpi来做渲染相应大小。
 
 ```javascript  
-super('100', '100', Phaser.CANVAS, 'content', null);
-super('200', '200', Phaser.CANVAS, 'content', null);
+const dpi = window.devicePixelRatio || 2;
+const width = document.documentElement.clientWidth * dpi;
+const height = document.documentElement.clientHeight * dpi;
+
+class Game extends Phaser.Game {
+    constructor() {
+        super(width, height, Phaser.CANVAS, 'content', null);
+    }
+}
 ```
 
 ### 资源问题
@@ -88,9 +95,16 @@ Phaser社区版本提供了 grunt打包工具，可以自行缩减比如常用 w
 * 减少不必要的计算
     *  图片阴影，发光效果，添加mask效果，可以直接用图片替代
     *  复杂文字效果使用图片
-* 在主循环update逻辑坐到`精简`
 * 游戏内不直接使用setTimeout setInterVal
 * 精灵数量的控制和注意及时的销毁，保证内存不泄露
+* 在主循环update逻辑做到`精简`，避免大片业务逻辑放到上面
+* 动画不放到update里 比如位置移动，可以使用补间动画(tween)
+
+```javascript  
+update() {
+    sprite.x += 1;
+}
+```
 
 ## Phaser 学习资源	
 
