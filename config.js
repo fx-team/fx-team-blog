@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-	'username': 'sunyuli',
-	'email': '841114150@qq.com'
+	'username': 'tracyxiong1',
+	'email': 'xiongle_2005@qq.com'
 };

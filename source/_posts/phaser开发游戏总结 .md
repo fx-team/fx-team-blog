@@ -1,5 +1,5 @@
 ---
-title: Phaser问题开发游戏总结
+title: Phaser开发游戏总结
 date: 2018-01-08 18:13:33
 tags: 游戏
 ---
@@ -15,8 +15,8 @@ Phaser是一个非常好用的html5游戏开发框架，官网上是这样介绍
 html5标准新加了一个 canvas标签，在canvas上我们可以通过js绘制各种各样的内容，游戏内包含着场景，精灵等要素。我们绘制了宽度600高度250，的一个canvas画布。游戏渲染模式使用Phaser.AUTO，也就是自动检测，在浏览器支持WebGL的时候使用WebGL渲染，不支持的时候回退到Canvas渲染。。并且加载了Splash场景，通过start，进入了Splash场景。等Splash场景结束后，我们可以通过`game.state.start('Main');`来加载Main场景实现场景之前的切换。在场景中有各种各样的方法来控制场景的展示，init方法，preload方法，create方法和update方法，分别管理当前场景的初始化、预加载、生成游戏对象以及更新游戏循环。
 
 ```javascript  
-var game = new Phaser.Game(600, 250 , Phaser.AUTO,"");
-var main = new Phaser.State();
+const game = new Phaser.Game(600, 250 , Phaser.AUTO,"");
+const main = new Phaser.State();
 game.state.add('Splash', Splash);
 game.state.add('Main', Main);
 game.state.start('Splash');
@@ -50,6 +50,7 @@ main.create = function(){
     for(var i=1; i < n; i++){
         var floor = game.add.sprite(30*i, 90, 'box','', this.floors);
     }
+}
 ```
 
 更新循环方法：通过方向键控制主角左右移动和跳跃，当主角撞到地板，做销毁处理，并且重新开始游戏。这样我们就完成一个简单的跳跃障碍物游戏。
@@ -108,10 +109,10 @@ update() {
 
 ## Phaser 学习资源	
 
-[Phaser 插件合集](https://github.com/orange-games)	
+[Phaser插件合集](https://github.com/orange-games)	
 [Phaser官网](http://www.phaser.io)	
 [Phaser中文官网](http://phaserengine.com)	
-[Phaser 小游戏合集](https://github.com/channingbreeze/games)
+[Phaser小游戏合集](https://github.com/channingbreeze/games)
 [Phaser webpack配置](https://github.com/lean/phaser-es6-webpack)
 
 
