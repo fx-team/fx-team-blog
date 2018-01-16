@@ -7,7 +7,7 @@ title: fx-team
 subtitle:
 description: 一个富有想象力的前端团队
 author: 一个富有想象力的前端团队fx-team
-language: zh-Hans
+language: zh
 timezone: 
 
 # URL
@@ -26,6 +26,10 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render: README.md
+
+# Server
+server:
+  compress: true #Enable GZIP compression
 
 # Writing
 new_post_name: :title.md # File name of new posts
