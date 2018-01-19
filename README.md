@@ -1,5 +1,18 @@
 # Quick Start
 
+
+## 创建属于你的git信息
+1. 本地创建一个`config.js`
+2. 编辑`config.js`，进行配置
+```
+module.exports = {
+  username: '', // 你的github username
+  email: '' // 你的github email
+};
+```
+### 为什么会有它
+`hexo-deployer-git` **deploy**时会使用全局的`git config`，如果全局`git config`配置的工作`git`账号将会非常麻烦，提交信息会是你的工作账号。所以我们在`hexo-deployer-git`基础上进行了优化，得到了`hexo-deployer-git-fx`，它会读取`config.js`中的配置，这样就不会有`git`信息错乱的困扰了。
+同时为了方便团队协作，`config.js`只在本地使用，不提交到服务端。
 ## Create a new post
 
 ``` bash
