@@ -13,7 +13,7 @@ Phaser是一个非常好用的html5游戏开发框架，官网上是这样介绍
 ### 开始游戏的场景
 
 html5标准新加了一个 canvas标签，在canvas上我们可以通过js绘制各种各样的内容，游戏内包含着场景，精灵等要素。我们绘制了宽度600高度250，的一个canvas画布。游戏渲染模式使用Phaser.AUTO，也就是自动检测，在浏览器支持WebGL的时候使用WebGL渲染，不支持的时候回退到Canvas渲染。。并且加载了Splash场景，通过start，进入了Splash场景。等Splash场景结束后，我们可以通过`game.state.start('Main');`来加载Main场景实现场景之前的切换。在场景中有各种各样的方法来控制场景的展示，init方法，preload方法，create方法和update方法，分别管理当前场景的初始化、预加载、生成游戏对象以及更新游戏循环。
-
+<!-- more -->
 ```javascript  
 const game = new Phaser.Game(600, 250 , Phaser.AUTO,"");
 const main = new Phaser.State();
