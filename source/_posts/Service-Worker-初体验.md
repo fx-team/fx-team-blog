@@ -1,8 +1,16 @@
 ---
 title: Service Worker 初体验
 date: 2018-01-28 23:33:03
-tags: Service Worker sw caches
+tags: Service Worker
 ---
+前言：
+
+上周做了一个预约健身卡的项目，在领导的指引下使用了lavas框架，这个框架的主要特点就是可以直接生成一套成熟的支持 PWA 的网站。
+
+在开发过程中，发现 PWA 方案的主要核心技术在于 Service Worker，我下面将从 PWA方案的简介、Service Worker 相关技术、Service Worker 的介绍的介绍等三个方向简单介绍一下我对于本次开发的收获。
+
+在介绍完这些技术后，我将在最后的篇幅里介绍一个简单 PWA 方案的详细实现。
+
 ## 一、什么是 PWA？
 Progressive Web App, 简称 PWA，是提升 Web App 的体验的一种新方法，能给用户原生应用的体验。
 
@@ -15,7 +23,8 @@ PWA 能做到原生应用的体验不是靠特指某一项技术，而是经过�
 Service Worker 是用 JavaScript 编写的 JS 文件，能够代理请求，并且能够操作浏览器缓存，通过将缓存的内容直接返回，让请求能够瞬间完成。开发者可以预存储关键文件，可以淘汰过期的文件等等，给用户提供可靠的体验。
 <!-- more -->
 ## 二、技术铺垫
-#### 1、全局作用域self
+技术铺垫主要讲的是使用 Service Worker 技术时还涉及的相关其他技术API，主要有全局作用域 self、Cache Storage 和 Cache对象。
+### 1、全局作用域self
 ``` js
 window === self                  // true
 window.window === window.self    // true
@@ -28,7 +37,7 @@ window.window === self           // true
 
 Service Worker 是运行在浏览器上开辟的一个新线程，浏览器背后悄悄运行的线程，所以没有 window 对象，会使用 self 获取当前运行环境的上下文，即使用 self 来表示全局作用域。
 
-#### 2、Cache Storage
+### 2、Cache Storage
 Cache Storage 可以用变量 caches 来引用，以下是 Cache Storage 的主要 API介绍
 * caches.open(cacheName) 用于获取一个 Cache 对象实例。
 * caches.match() 用于检查 CacheStorage 中是否存在以Request 为 key 的 Cache 对象。
@@ -39,7 +48,7 @@ Cache Storage 通过 cacheName 标记缓存版本，所以就会存在多个版�
 
 假设当前域名下所有的覆盖式发布的静态资源和接口数据全部存储在同一个 cacheName 里面，业务部署更新后，无法识别旧的冗余资源，单靠前端无法完全清除。这是因为 Service Worker 不知道完整的静态资源路径表，只能在客户端发起请求时去做判断，那些当前不会用到的资源不代表以后一定不会使用到。假如静态资源是非覆盖式发布，那么冗余的资源就更多了。这里要特别注意的是，Cache 不会过期，只能显式删除。
 
-#### 3、Cache
+### 3、Cache
 规范里 Cache 对应内核的 ServiceWorkerCache 对象，提供了已缓存的 Request / Response 对象体的存储管理机制。它提供了一系列管理存储的 JS 接口：
 * cache.put() 用于把 Request / Response 对象体放进指定的 Cache。
 * cache.add() 用于获取一个 Request 的 Response，并将 Request / Response 对象体放进指定的 Cache。注：等价于 fetch(request) + Cache.put(request, response)。
@@ -50,14 +59,15 @@ Cache Storage 通过 cacheName 标记缓存版本，所以就会存在多个版�
 * cache.delete() 用于删除以 Request 为 key 的 Cache Entry。注意，Cache 不会过期，只能显式删除 。
 
 ## 三、Service Worker
-#### 1、Service Worker概念和用法
+下面我们将进入主要部分，Service Worker的介绍和用法。
+### 1、Service Worker概念和用法
 我们平常浏览器窗口中跑的页面运行的是主JavaScript线程，DOM和window全局变量都是可以访问的。而Service Worker是走的另外的线程，可理解为在浏览器背后默默运行的一个线程，脱离浏览器窗体，因此，window以及DOM都是不能访问的，此时我们可以使用之前讲到的self访问全局上下文。
 
 由于Service Worker走的是另外的线程，因此，Service Worker不会阻塞主JavaScript线程，也就是不会引起浏览器页面加载的卡顿之类。同时，由于Service Worker设计基于Promise，完全异步，同步API（如XHR和localStorage）不能在Service Worker中使用。
 
-Service Worker对我们的协议也有要求，就是必须是https协议的，不过本地开发Service Worker在http://localhost或者http://127.0.0.1这种本地环境可以直接运行。如果想线上真是环境预览，可以考虑借助Github pages，因为它是https协议的。
+Service Worker对我们的协议也有要求，就是必须是https协议的，不过本地开发Service Worker在 http://localhost 或者 http://127.0.0.1 这种本地环境可以直接运行。如果想线上真是环境预览，可以考虑借助Github pages，因为它是https协议的。
 
-#### 2、Service Worker生命周期
+### 2、Service Worker生命周期
 Service Worker注册时候的生命周期是这样的：
 1.	Download – 下载注册的JS文件
 2.	Install – 安装
@@ -71,7 +81,7 @@ Service Worker注册时候的生命周期是这样的：
 
 其中任何一个步骤失败都将进入销毁（redundant）
 
-#### 2、Service Worker 对应的事件名
+### 2、Service Worker 对应的事件名
 1. self.addEventListener('install', function(event) { /* 安装后... */ });
 2. self.addEventListener('activate', function(event) { /* 激活后... */ });
 3. elf.addEventListener('fetch', function(event) { /* 请求后... */ });
@@ -87,12 +97,15 @@ install 事件是服务工作线程获取的第一个事件，并且它仅发�
 clients.claim() 可替换此默认值，并控制未控制的页面。
 
 ## 四、简单的 PWA 方案
+
+通过以上介绍，我们就可以来实现一个简单的支持 PWA 的网站啦！下面我将把实现的代码一一罗列出来。
+
 **主要使用的技术**
 1. App Manifest 
 2. Service Worker
 3. cacheStorage
 
-#### 1、 App Manifest
+### 1、 App Manifest
 添加 manifest.json 文件。
 
 为了让 PWA 应用被添加到主屏幕, 使用 manifest.json 定义应用的名称, 图标等等信息。
@@ -119,11 +132,12 @@ clients.claim() 可替换此默认值，并控制未控制的页面。
 <link rel="manifest" href="manifest.json" />
 ```
 
-#### 2、Service Worker
+### 2、Service Worker
 主要操作是：
 1. 注册完成安装 Service Worker 时, 抓取资源写入缓存； 
 2. 网页抓取资源的过程中, 在 Service Worker 可以捕获到 fetch 事件, 编写代码如何响应资源的请求；
 3. 最后一步是更新静态资源的功能。
+
 ``` js
 if (navigator.serviceWorker != null) {
 	navigator.serviceWorker.register('sw.js')
@@ -183,6 +197,9 @@ self.addEventListener('activate', function(e) {
 ```
 
 以上的功能都准备好就可以简单的生成一个 PWA 的网站了。可以使用支持 PWA 的手机进行预览，根据提示增加到桌面。
+
+通过以上短短不到100行的代码，就可以简单实现网站对于 PWA 的支持。大家通过阅读可以自己尝试去写一写，在实际环境中进行更深入的理解。
+
 
 ## 参考文献：
 1. [服务工作线程：简介](https://developers.google.cn/web/fundamentals/primers/service-workers/?hl=zh-cn)
