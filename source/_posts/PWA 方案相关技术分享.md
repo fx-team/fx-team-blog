@@ -7,12 +7,11 @@ tags: Service Worker
 上周做了一个预约健身卡的项目，在领导的指引下使用了 [LAVAS](https://lavas.baidu.com) 框架，这个框架的主要特点就是可以直接生成一套成熟的支持 PWA 的网站。  
 在开发过程中，发现 PWA 方案的主要核心技术在于 Service Worker，我下面将从 PWA 方案的简介、PWA 方案的相关技术等2个方向简单介绍一下我对于本次开发的收获。  
 在介绍完这些技术后，我将在最后的篇幅里介绍一个简单 PWA 方案的详细实现。
-
+<!-- more -->
 # 什么是 PWA？
 Progressive Web App, 简称 PWA，是提升 Web App 的体验的一种新方法，能给用户原生应用的体验。  
 PWA 能做到原生应用的体验不是靠特指某一项技术，而是经过应用一些新技术进行改进，在安全、性能和体验三个方面都有很大提升，PWA 本质上是 Web App，借助一些新技术也具备了 Native App 的一些特性，兼具 Web App 和 Native App 的优点。
 
-<!-- more -->
 # 相关技术
 PWA 方案的关键技术：Service Worker。  
 当用户打开我们站点时（从桌面 icon 或者从浏览器），通过 Service Worker 能够让用户在网络条件很差的情况下也能瞬间加载并且展现。  
