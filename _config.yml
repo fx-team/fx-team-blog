@@ -6,7 +6,7 @@
 title: fx-team
 subtitle:
 description: 一个富有想象力的前端团队
-author: 一个富有想象力的前端团队fx-team
+author: fx-team
 language: zh-Hans
 timezone: 
 
@@ -85,9 +85,3 @@ deploy:
   repo: https://github.com/fx-team/fx-team.github.io.git
   branch: master
   configDir: config.js
-
-archive_generator:
-    per_page: 0
-    yearly: false
-    monthly: false
-    daily: false
