@@ -53,7 +53,7 @@ module.exports = {
 
 代码简简单单，`source`入参代表文件内容，`resourceQuery`是`import 'filepath?default'`中`?`后边的部分（包括`?`）。
 
-我这里的判断逻辑是，带有`?debug`字样的引入文件，只有在非生产环境中的mock环境才被引入（有点拗口）。
+我这里的判断逻辑是，带有`?debug`字样的引入文件，只有在非生产环境中的 mock 环境才被引入（有点拗口）。
 
 ```js
 'use strict';
@@ -91,4 +91,4 @@ module.exports = {
 };
 ```
 
-敬请期待下一节 webpack优化(2) Dllplugin ^\_^
+敬请期待下一节 webpack 优化(2) Dllplugin ^\_^
