@@ -6,7 +6,7 @@
     "version": "3.4.4"
   },
   "dependencies": {
-    "hexo": "^3.5.0",
+    "hexo": "3.4.4",
     "hexo-browsersync": "^0.3.0",
     "hexo-deployer-git-fx": "^0.4.9",
     "hexo-generator-archive": "^0.1.5",
