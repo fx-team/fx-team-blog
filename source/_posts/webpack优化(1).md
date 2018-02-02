@@ -1,7 +1,8 @@
 ---
-title: webpack优化(1)
+title: webpack 优化(1)
 date: 2018-02-02 16:30:58
 tags: happypack
+author: <a href="https://github.com/juddy-star" target="_blank">juddy-star</a>
 ---
 
 # webpack 优化
