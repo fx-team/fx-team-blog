@@ -8,6 +8,23 @@ tags: application.js
 
 ## koa 图解
 
+图中一层一层的洋葱圈，其实就是每一个中间件函数`middlewarefn(ctx, next)`，有的是系统中间件，有的是用户中间件，这取决于用户如何定义中间件在系统中的功能层级（都是通过 app.use()加载，koa 内部不封装任何中间件函数）。
+
+路线分析：外层到内层-对 request 请求进行处理，内层再到外层-对 response 请求进行处理。
+
+代码分析：
+
+```js
+// 某一个中间件函数
+async middlewarefn (ctx, next) {
+  // 外层到内层的代码
+  ......
+  await next();
+  // 内层到外层的代码
+  ......
+}
+```
+
 {% asset_img koaStructure.png koa 结构 %}
 
 ## koa 的核心文件有且只有 4 个（精简、流畅、易用）
