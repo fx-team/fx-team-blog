@@ -90,3 +90,5 @@ module.exports = {
   }
 };
 ```
+
+敬请期待下一节 webpack优化(2) Dllplugin ^\_^
