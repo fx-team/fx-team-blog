@@ -2,6 +2,7 @@
 title: WebSocket 介绍以及配合 STOMP 的使用
 date: 2018-01-21 01:09:54
 tags: WebSocket, STOMP
+author: <a href="https://github.com/chirsen" target="_blank">chirsen</a>
 ---
 
 由于近期需要使用 WebSocket 的部分功能，然而在工作过程中，发现自己对这部分知识点不是很了解，而且对于后台同学提出的 WebSocket 和 STOMP 的组合，不知如何下手。经过相关资料查证，分享与大家，如有纰漏，希望不吝指出。  

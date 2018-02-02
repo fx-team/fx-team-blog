@@ -2,6 +2,7 @@
 title:  PWA 方案相关技术分享
 date: 2018-01-28 23:33:03
 tags: Service Worker
+author: <a href="https://github.com/changxiao" target="_blank">changxiao</a>
 ---
 前言：  
 上周做了一个预约健身卡的项目，在领导的指引下使用了 [LAVAS](https://lavas.baidu.com) 框架，这个框架的主要特点就是可以直接生成一套成熟的支持 PWA 的网站。  
