@@ -6,6 +6,34 @@ tags: application.js
 
 # koa
 
+koa 是由 Express 原班人马打造的，致力于成为一个更小、更富有表现力、更健壮的 Web 框架。 使用 koa 编写 web 应用，通过组合不同的 generator，可以免除重复繁琐的回调函数嵌套， 并极大地提升错误处理的效率。koa 不在内核方法中绑定任何中间件， 它仅仅提供了一个轻量优雅的函数库，使得编写 Web 应用变得得心应手。
+
+安装、版本依赖请[点我点我](https://koa.bootcss.com/) ~ O(∩_∩)O 哈哈~
+
+开篇怎能没有 hello world 呢？→_→
+
+```js
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
+
+app.listen(3000);
+
+// 不满意 换个口味吧？
+const http = require('http');
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
+
+http.createServer(app.callback()).listen(3000);
+```
+
 ## koa 图解
 
 图中一层一层的洋葱圈，其实就是每一个中间件函数`middlewarefn(ctx, next)`，有的是系统中间件，有的是用户中间件，这取决于用户如何定义中间件在系统中的功能层级（都是通过 app.use()加载，koa 内部不封装任何中间件函数）。
@@ -27,14 +55,18 @@ async middlewarefn (ctx, next) {
 
 {% asset_img koaStructure.png koa 结构 %}
 
-## koa 的核心文件有且只有 4 个（精简、流畅、易用）
+## koa 核心文件
+
+有且仅有 4 个（精简、流畅、易用）
 
 * application.js
 * context.js
 * request.js
 * response.js
 
-### 今天主要解剖一下这个货 -\_-> application.js
+### application.js
+
+今天主要解剖一下这个货 ^\_^
 
 继承自 Emitter 类，主要用于监听 error。
 
