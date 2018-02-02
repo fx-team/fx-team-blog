@@ -2,6 +2,7 @@
 title: Phaser开发游戏总结
 date: 2018-01-08 18:13:33
 tags: 游戏
+author: <a href="https://github.com/loufushuai" target="_blank">loufushuai</a>
 ---
 
 ## 前言
