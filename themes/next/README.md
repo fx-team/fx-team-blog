@@ -1,5 +1,5 @@
 <div align="right">Language: :us:
-<a title="Chinese" href="docs/cn/README.md">:cn:</a>
+<a title="Chinese" href="docs/zh-CN/README.md">:cn:</a>
 <a title="Russian" href="docs/ru/README.md">:ru:</a></div>
 
 # <div align="center"><a title="Go to homepage" href="https://theme-next.org"><img align="center" width="56" height="56" src="https://raw.githubusercontent.com/theme-next/hexo-theme-next/master/source/images/logo.svg?sanitize=true"></a> e x T</div>
@@ -7,13 +7,14 @@
 <p align="center">«NexT» is a high quality elegant <a href="http://hexo.io">Hexo</a> theme. It is crafted from scratch, with love.</p>
 
 [![gitter-image]][gitter-url]
-[![mnt-image]][commits-url]
+[![riot-image]][riot-url]
+[![t-chat-image]][t-chat-url]
+[![t-news-image]][t-news-url]
+[![lang-image]][lang-url]
 [![travis-image]][travis-url]
 [![rel-image]][releases-url]
 [![hexo-image]][hexo-url]
 [![lic-image]][lic-url]
-
-* :triangular_flag_on_post: Recommended Markdown Editor: <a href="https://github.com/theme-next/hexo-editor" target="_blank">HexoEditor</a>
 
 ## Live Preview
 
@@ -34,6 +35,20 @@ Simplest way to install is by cloning whole repository:
    ```
 
 Or you can see [detailed installation instructions][docs-installation-url] if you want any other variant.
+
+## Plugins
+
+In NexT config now you can find dependencies on each module which was moved to external repositories which can be found by [main organization link](https://github.com/theme-next).
+
+For example, you want to use `fancybox` in your site. Go to NexT config and see:
+
+```yml
+# Fancybox
+# Dependencies: https://github.com/theme-next/theme-next-fancybox
+fancybox: false
+```
+
+Then turn on `fancybox` and go to «Dependencies» link with installation instructions of this module.
 
 ## Update
 
@@ -60,14 +75,30 @@ For those who also encounter **«[Error: Cannot find module 'hexo-util'](https:/
 
 Contribution is welcome, feel free to open an issue and fork. Waiting for your pull request.
 
+## Third party applications
+
+* :triangular_flag_on_post: <a title="Hexo Markdown Editor" href="https://github.com/zhuzhuyule/HexoEditor" target="_blank">HexoEditor</a>
+
 [browser-image]: https://img.shields.io/badge/browser-%20chrome%20%7C%20firefox%20%7C%20opera%20%7C%20safari%20%7C%20ie%20%3E%3D%209-lightgrey.svg
 [browser-url]: https://www.browserstack.com
+
+[lang-image]: https://d322cqt584bo4o.cloudfront.net/theme-next/localized.svg "Add or improve translation in few seconds!"
+[lang-url]: https://crwd.in/theme-next
 
 [gitter-image]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/theme-next
 
+[riot-image]: https://img.shields.io/badge/riot-join%20chat-green.svg
+[riot-url]: https://riot.im/app/#/room/#NexT:matrix.org
+
+[t-chat-image]: https://img.shields.io/badge/telegram-chat-lightgrey.svg
+[t-chat-url]: https://t.me/joinchat/GUNHXA-vZkgSMuimL1VmMw
+
+[t-news-image]: https://img.shields.io/badge/telegram-news-lightgrey.svg
+[t-news-url]: https://t.me/theme_next
+
 [travis-image]: https://travis-ci.org/theme-next/hexo-theme-next.svg?branch=master
-[travis-url]: https://travis-ci.org/theme-next/hexo-theme-next?branch=master "Travis CI"
+[travis-url]: https://travis-ci.org/theme-next/hexo-theme-next?branch=master "Travis CI [Linux]"
 
 [hexo-image]: https://img.shields.io/badge/hexo-%3E%3D%203.0-blue.svg
 [hexo-url]: http://hexo.io
@@ -75,8 +106,9 @@ Contribution is welcome, feel free to open an issue and fork. Waiting for your p
 [lic-image]: https://img.shields.io/badge/license-%20AGPL-blue.svg
 [lic-url]: https://github.com/theme-next/hexo-theme-next/blob/master/LICENSE.md
 
-[rel-image]: https://img.shields.io/github/release/theme-next/hexo-theme-next.svg
-[mnt-image]: https://img.shields.io/maintenance/yes/2018.svg
+<!--[rel-image]: https://img.shields.io/github/release/theme-next/hexo-theme-next.svg-->
+[rel-image]: https://badge.fury.io/gh/theme-next%2Fhexo-theme-next.svg
+<!--[mnt-image]: https://img.shields.io/maintenance/yes/2018.svg-->
 
 [download-latest-url]: https://github.com/theme-next/hexo-theme-next/archive/master.zip
 [releases-latest-url]: https://github.com/theme-next/hexo-theme-next/releases/latest

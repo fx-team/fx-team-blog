@@ -2,13 +2,35 @@
 # Theme Core Configuration Settings
 # ---------------------------------------------------------------
 
-# Set to true, if you want to fully override the default configuration.
-# Useful if you don't want to inherit the theme _config.yml configurations.
+# If false, merge configs from `_data/next.yml` into default configuration (rewrite).
+# If true, will fully override default configuration by options from `_data/next.yml` (override). Only for NexT settings.
+# And if true, all config from default NexT `_config.yml` must be copied into `next.yml`. Use if you know what you are doing.
+# Useful if you want to comment some options from NexT `_config.yml` by `next.yml` without editing default config.
 override: false
 
 # Allow to cache content generation. Introduced in NexT v6.0.0.
 cache:
-  enable: true
+  enable: false
+
+# Redefine custom file paths. Introduced in NexT v6.0.2.
+# If commented, will be used default custom file paths.
+
+# For example, you want to put your custom styles file
+# outside theme directory in root `source/_data`, set
+# `styles: source/_data/styles.styl`
+#custom_file_path:
+  # Default paths: layout/_custom/*
+  #head: source/_data/head.swig
+  #header: source/_data/header.swig
+  #sidebar: source/_data/sidebar.swig
+
+  # Default path: source/css/_variables/custom.styl
+  #variables: source/_data/variables.styl
+  # Default path: source/css/_mixins/custom.styl
+  #mixins: source/_data/mixins.styl
+  # Default path: source/css/_custom/custom.styl
+  #styles: source/_data/styles.styl
+
 
 # ---------------------------------------------------------------
 # Site Information Settings
@@ -59,7 +81,7 @@ footer:
     version: true
   # -------------------------------------------------------------
   # Any custom text can be defined here.
-  #custom_text: Hosted by <a target="_blank" href="https://pages.github.com">GitHub Pages</a>
+  #custom_text: Hosted by <a target="_blank" rel="external nofollow" href="https://pages.coding.me"><b>Coding Pages</b></a>
 
 # ---------------------------------------------------------------
 # SEO Settings
@@ -127,20 +149,30 @@ site_state: true
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/fx-team || github
-  # E-Mail: mailto:yourname@gmail.com || envelope
-  # Google: https://plus.google.com/yourname || google
-  # Twitter: https://twitter.com/yourname || twitter
-  # FB Page: https://www.facebook.com/yourname || facebook
-  # VK Group: https://vk.com/yourname || vk
-  # StackOverflow: https://stackoverflow.com/yourname || stack-overflow
-  # YouTube: https://youtube.com/yourname || youtube
-  # Instagram: https://instagram.com/yourname || instagram
-  # Skype: skype:yourname?call|chat || skype
+  #E-Mail: mailto:yourname@gmail.com || envelope
+  #Google: https://plus.google.com/yourname || google
+  #Twitter: https://twitter.com/yourname || twitter
+  #FB Page: https://www.facebook.com/yourname || facebook
+  #VK Group: https://vk.com/yourname || vk
+  #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
+  #YouTube: https://youtube.com/yourname || youtube
+  #Instagram: https://instagram.com/yourname || instagram
+  #Skype: skype:yourname?call|chat || skype
 
 social_icons:
   enable: true
   icons_only: false
   transition: false
+  # Dependencies: exturl: true in Tags Settings section below.
+  # To encrypt links above use https://www.base64encode.org
+  # Example encoded link: `GitHub: aHR0cHM6Ly9naXRodWIuY29tL3RoZW1lLW5leHQ= || github`
+  exturl: false
+
+# Follow me on GitHub banner in right-top corner.
+# Usage: `permalink || title`
+# Value before `||` delimeter is the target permalink.
+# Value after `||` delimeter is the title and aria-label name.
+#github_banner: https://github.com/yourname || Follow me on GitHub
 
 # Blog rolls
 links_icon: link
@@ -223,6 +255,8 @@ post_meta:
   item_text: true
   created_at: true
   updated_at: false
+  # Only show 'updated' if different from 'created'.
+  updated_diff: false
   categories: true
 
 # Post wordcount display settings
@@ -249,8 +283,7 @@ symbols_count_time:
 # Declare license on posts
 post_copyright:
   enable: true
-  license: CC BY-NC-SA 3.0
-  license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
+  license: <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a>
 
 
 # ---------------------------------------------------------------
@@ -260,7 +293,7 @@ post_copyright:
 # Reduce padding / margin indents on devices with narrow width.
 mobile_layout_economy: false
 
-# Android Chrome header panel color ($black-deep).
+# Android Chrome header panel color ($brand-bg / $headband-bg => $black-deep).
 android_chrome_color: "#222"
 
 # Custom Logo.
@@ -278,6 +311,13 @@ custom_logo:
 # https://github.com/chriskempson/tomorrow-theme
 highlight_theme: normal
 
+# Enable "cheers" for archive page.
+cheers_enabled: true
+
+# Manual define the max content width
+# !!Only available for Gemini Scheme currently
+# Leave it empty for the default 75% (suggest not less than 1000px)
+#max_content_width: 1000px
 
 # ---------------------------------------------------------------
 # Font Settings
@@ -339,15 +379,47 @@ font:
 # Third Party Services Settings
 # ---------------------------------------------------------------
 
-# MathJax Support
-mathjax:
+# Math Equations Render Support
+math:
   enable: false
-  per_page: false
-  cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+
+  # Default(true) will load mathjax/katex script on demand
+  # That is it only render those page who has 'mathjax: true' in Front Matter.
+  # If you set it to false, it will load mathjax/katex srcipt EVERY PAGE.
+  per_page: true
+
+  engine: mathjax
+  #engine: katex
+
+  # hexo-rendering-pandoc (or hexo-renderer-kramed) needed to full MathJax support.
+  mathjax:
+    # Use 2.7.1 as default, jsdelivr as default CDN, works everywhere even in China
+    cdn: //cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+    # For newMathJax CDN (cdnjs.cloudflare.com) with fallback to oldMathJax (cdn.mathjax.org).
+    #cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+    # For direct link to MathJax.js with CloudFlare CDN (cdnjs.cloudflare.com).
+    #cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML
+    # For automatic detect latest version link to MathJax.js and get from Bootcss.
+    #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+
+  # hexo-renderer-markdown-it-plus (or hexo-renderer-markdown-it with markdown-it-katex plugin)
+  # needed to full Katex support.
+  katex:
+    # Use 0.7.1 as default, jsdelivr as default CDN, works everywhere even in China
+    cdn: //cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css
+    # CDNJS, provided by cloudflare, maybe the best CDN, but not works in China
+    #cdn: //cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css
+    # Bootcss, works great in China, but not so well in other region
+    #cdn: //cdn.bootcss.com/KaTeX/0.7.1/katex.min.css
 
 # Han Support
 # Dependencies: https://github.com/theme-next/theme-next-han
 han: false
+
+# Pangu Support
+# Dependencies: https://github.com/theme-next/theme-next-pangu
+# For more information: https://github.com/vinta/pangu.js
+pangu: false
 
 # Swiftype Search API Key
 #swiftype_key:
@@ -355,14 +427,12 @@ han: false
 # Baidu Analytics ID
 #baidu_analytics:
 
-# Duoshuo ShortName
-#duoshuo_shortname:
-
 # Disqus
 disqus:
   enable: false
   shortname:
   count: true
+  lazyload: false
 
 # Hypercomments
 #hypercomments_id:
@@ -399,7 +469,6 @@ valine:
 
 # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
-# You can get your Github ID from https://api.github.com/users/<Github username>
 gitment:
   enable: false
   mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
@@ -407,8 +476,8 @@ gitment:
   lazy: false # Comments lazy loading with a button
   cleanly: false # Hide 'Powered by ...' on footer, and more
   language: # Force language, or auto switch by theme
-  github_user: # MUST HAVE, Your Github ID
-  github_repo: # MUST HAVE, The repo you use to store Gitment comments
+  github_user: # MUST HAVE, Your Github Username
+  github_repo: # MUST HAVE, The name of the repo you use to store Gitment comments
   client_id: # MUST HAVE, Github client id for the Gitment
   client_secret: # EITHER this or proxy_gateway, Github access secret token for the Gitment
   proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
@@ -428,9 +497,6 @@ gitment:
 #jiathis:
   ##uid: Get this uid from http://www.jiathis.com/
 #add_this_id:
-
-# Share
-#duoshuo_share: true
 
 # NeedMoreShare2
 # Dependencies: https://github.com/theme-next/theme-next-needmoreshare2
@@ -481,15 +547,6 @@ needmoreshare2:
 # Application Insights
 # See https://azure.microsoft.com/en-us/services/application-insights/
 # application_insights:
-
-# Make duoshuo show UA
-# user_id must NOT be null when admin_enable is true!
-# you can visit http://dev.duoshuo.com get duoshuo user id.
-duoshuo_info:
-  ua_enable: true
-  admin_enable: false
-  user_id: 0
-  #admin_nickname: Author
 
 # Post widgets & FB/VK comments settings.
 # ---------------------------------------------------------------
@@ -603,7 +660,7 @@ algolia_search:
     hits_stats: "${hits} results found in ${time} ms"
 
 # Local search
-# Dependencies: https://github.com/flashlab/hexo-generator-search
+# Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
   enable: false
   # if auto, trigger search by changing input
@@ -611,6 +668,18 @@ local_search:
   trigger: auto
   # show top n results per article, show all results by setting to -1
   top_n_per_article: 1
+  # unescape html strings to the readable one
+  unescape: false
+
+# Bookmark Support
+# Dependencies: https://github.com/theme-next/theme-next-bookmark
+bookmark:
+  enable: false
+  # if auto
+  #   - save the reading position when closing the page
+  #   - or clicking the bookmark-icon
+  # if manual, only save it by clicking the bookmark-icon
+  save: auto
 
 
 # ---------------------------------------------------------------
@@ -648,6 +717,7 @@ tabs:
   border_radius: 0
 
 # Reading progress bar
+# Dependencies: https://github.com/theme-next/theme-next-reading-progress
 reading_progress:
   enable: false
   color: "#37c6c0"
@@ -678,8 +748,10 @@ motion:
     # Only for Pisces | Gemini.
     sidebar: slideUpIn
 
-# Fancybox
-# Dependencies: https://github.com/theme-next/theme-next-fancybox
+# Fancybox. There is support for old version 2 and new version 3.
+# Please, choose only any one variant, do not need to install both.
+# For install 2.x: https://github.com/theme-next/theme-next-fancybox
+# For install 3.x: https://github.com/theme-next/theme-next-fancybox3
 fancybox: false
 
 # Added switch option for separated repo in 6.0.0.
@@ -818,9 +890,25 @@ vendors:
   # https://github.com/ethantw/Han
   han:
 
+  # Internal version: 3.3.0
+  # https://github.com/vinta/pangu.js
+  pangu:
+
   # needMoreShare2
   # https://github.com/revir/need-more-share2
-  needMoreShare2:
+  needmoreshare2_js:
+  needmoreshare2_css:
+
+  # bookmark
+  # Internal version: 1.0.0
+  # https://github.com/theme-next/theme-next-bookmark
+  bookmark:
+
+  # reading_progress
+  # Internal version: 1.0
+  # https://github.com/theme-next/theme-next-reading-progress
+  # Example: https://cdn.jsdelivr.net/gh/theme-next/theme-next-reading-progress@1.1/reading_progress.min.js
+  reading_progress:
 
 
 # Assets
@@ -829,4 +917,4 @@ js: js
 images: images
 
 # Theme version
-version: 6.0.0
+version: 6.0.3
