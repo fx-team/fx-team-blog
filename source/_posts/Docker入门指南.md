@@ -1,5 +1,5 @@
 ---
-title: Docker入门指南
+title: Docker 入门指南
 date: 2018-03-04 22:10:42
 tags: Docker
 ---
@@ -22,7 +22,7 @@ Docker 是一种轻量级的虚拟化技术，它源自 dotCloud 公司的内部
 
 Docker 支持的 Windows 系统的最低版本是 Windows 10 Pro，且必须开启 Hyper-V，支持的 macOS 的最低版本是 macOS 10.10.3 Yosemite。不满足以上系统要求的可以使用 [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/)。
 
-## Docker的基本概念
+## Docker 的基本概念
 
 ### 镜像
 
