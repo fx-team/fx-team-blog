@@ -115,9 +115,10 @@ menu:
   tags: /tags/ || tags
   #categories: /categories/ || th
   archives: /archives/ || archive
+  join: /join || user-plus
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
-  #commonweal: /404/ || heartbeat
+  # commonweal: /404/ || heartbeat
 
 # Enable/Disable menu icons / item badges.
 menu_settings:
